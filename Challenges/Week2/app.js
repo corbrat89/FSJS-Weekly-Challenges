@@ -1,10 +1,8 @@
 //create function
-  //control and return statements
  function sayHello()
  {
-	var userInput = prompt("Hello there!");
-	//because we dont care about capitals
-	userInput = userInput.toLowerCase()
+	var userInput = prompt("Hello there!").toLowerCase();
+	//because capitalism isn't cool
 	if (userInput == "hello"){
 		return "Hello World";
 	}
@@ -12,7 +10,6 @@
 		return "Well thats not very friendly to not say hello";
 	}
  }
-//Prompt user for input and store variable
 
 //Call function
 var output = sayHello();
