@@ -14,14 +14,13 @@ $('.flash-card').hover(function (){
     Hint: jQuery has a toggle function that can toggle the visibility of a selected DOM node.
     Bonus:  Change the text of the button using jQuery when you toggle the answers on/off. */  
 $("button").click(function(){
+	$('.answer').toggle();
 	if ($(this).text() == "Show All Answers")
 	{
-		$('.answer').show();
 		 $(this).text("Hide All Answers");
 	}
 	else
 	{
-		$('.answer').hide();
 		$(this).text("Show All Answers");
 	}
 });
