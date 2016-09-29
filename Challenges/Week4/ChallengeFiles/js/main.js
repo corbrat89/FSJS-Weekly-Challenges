@@ -1,4 +1,4 @@
-$('#menu a').click(function(){ 
+$('#menu a').click(function(){
 	//split id to get last part for openBlock
 	var linkIDParts = this.id.split("_");
 	openBlock(linkIDParts[2]); 

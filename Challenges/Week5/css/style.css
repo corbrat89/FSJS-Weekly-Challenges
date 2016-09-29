@@ -108,6 +108,9 @@ ul li {
     transform: scale(1.05);
 }
 
+.btn:disabled{
+	text-decoration: line-through;
+}
 
 @media( max-width: 700px ) {
   .poke-card {

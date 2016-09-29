@@ -1,11 +1,69 @@
-function addPokemon(name) {
+var apiURL = "http://pokeapi.co/api/v2/pokemon";
+var prevURL = null;
+var nextURL = null;
+
+$( document ).ready(function(){
+	makeJSONCall(apiURL)
+});
+
+$("#next").click(function() {
+	makeJSONCall(nextURL);
+});
+
+$("#previous").click(function() {
+	makeJSONCall(prevURL);
+});
+
+$('body').on('click', '.name', function(){
+	var pokeURL = $(this).data("url");
+	var pokeName = $(this).html();
+	$("#dialog").empty();
+	getPokeDetails(pokeURL)
+	$( "#dialog" ).dialog({
+		modal: true,
+		title: pokeName
+   });
+});
+
+function addPokemon(name, url) {
     $(`
         <li class="poke-card">
-            <h3 class="name">${name}</h3>
+            <h3 class="name" data-url="${url}">${name}</h3>
         </li>
     `).appendTo('#pokemon');
 };
 
+function disableBtn(btnID, url)
+{
+	if (url == null) {
+		$(btnID).prop("disabled",true);
+	} else {
+		$(btnID).prop("disabled",false);
+	}
+}
+
+function getPokeDetails(url){
+	$.getJSON( url, function( json ) {
+		var frontSprite = json.sprites.front_default;
+		var backSprite = json.sprites.back_default;
+		$(`<img src="${frontSprite}" alt="Sprite"><img src="${backSprite}" alt="Sprite">
+		
+		`).appendTo("#dialog");
+	});
+}
+
+function makeJSONCall(url){
+	$("#pokemon").empty();
+	$.getJSON( url, function( json ) {
+		$.each(json.results, function(i, item) {
+			addPokemon(item.name, item.url);
+		});
+		prevURL = json.previous;
+		disableBtn("#previous", prevURL);
+		nextURL = json.next;
+		disableBtn("#next", nextURL);
+	 });
+};
 
 // 1.)  Use the PokéAPI from http://pokeapi.co along with jQuery's getJSON function to retrieve the first 20 Pokémon.
 // 1.1)  Use the addPokemon function to show each of the Pokémon names that were retrieved.  
