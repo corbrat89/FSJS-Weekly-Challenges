@@ -41,4 +41,5 @@ $("#Print").click(function(){
 	$("#output").empty();
 	var str = myBox.print();
 	$("#output").append(str);
+	$("#output").append(`</br><canvas id="myCanvas" width="${myBox.width}" height="${myBox.height}" style="border:1px solid #C62828;"></canvas>`);
 });
