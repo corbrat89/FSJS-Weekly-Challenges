@@ -1,21 +1,27 @@
-//See readme for challenge instructions
-
-/*
- * Note about github api: requires User-Agent header to be set. This can be done
- * in Node by passing an options object (rather than a simple url string) as the 
- * first param to the https.get() function
- *
- * So something like
- * var options = {
- *   hostname: api.github.com,
- *   path: <<try to find in documentation linked in readme>>,
- *   headers: {
- *     'User-Agent': '<<your github username>>'
- *   }
- * };
- *
- */
-
 function getRepos(username){
-  console.log('Repos for ' + username);
+console.log('Repos for ' + username);
+var http = require("https");
+var req_options = 
+{
+	host: 'api.github.com',
+	headers: {'User-Agent': 'corbrat89'},
+	path: '/users/' + username + '/repos'
+};
+
+//connect to the api url
+var request = http.get(req_options, function(res){
+	var body = "";
+	res.on('data', function(chunk){
+		body += chunk;
+	});
+	res.on('end', function(){
+		var data = JSON.parse(body);
+		for(var key in data) {
+			console.log(data[key].name);
+		}
+	});
+});
 }
+
+
+module.exports.getRepos = getRepos;
